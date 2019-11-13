@@ -12,6 +12,7 @@ RUN sed -i 's/^[#]*PasswordAuthentication.*/PasswordAuthentication no/' /etc/ssh
 RUN mkdir -p /root/.ssh
 
 ADD entrypoint.sh /usr/local/sbin/
+RUN chmod +x /usr/local/sbin/entrypoint.sh
 
 EXPOSE 22
 ENTRYPOINT ["entrypoint.sh"]
