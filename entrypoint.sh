@@ -37,9 +37,16 @@ if [ ! -f "$HOST_ED25519_KEY_FILE" ]; then
   $CMD_GEN -N '' -t ed25519 -f $HOST_ED25519_KEY_FILE
 fi
 
+echo "Looking for authorized_keys file into /tmp/authorized_keys"
+if [ -f "/tmp/authorized_keys"]; then
+  echo "Found authorized_keys file. Replacing root's..."
+  cat /tmp/authorized_keys > /root/.ssh/authorized_keys
+  chmod 600 /root/.ssh/authorized_keys
+fi
+
 echo "All systems go! Starting command..."
 
-if [ ! "$@" = "" ]; then
+if [ "$@" = "${COMMAND}" ]; then
   echo "Executing ${COMMAND}"
   exec ${COMMAND}
 else
