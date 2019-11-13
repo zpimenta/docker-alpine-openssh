@@ -38,7 +38,7 @@ if [ ! -f "$HOST_ED25519_KEY_FILE" ]; then
 fi
 
 echo "Looking for authorized_keys file into /tmp/authorized_keys"
-if [ -f "/tmp/authorized_keys"]; then
+if [ -f "/tmp/authorized_keys" ]; then
   echo "Found authorized_keys file. Replacing root's..."
   cat /tmp/authorized_keys > /root/.ssh/authorized_keys
   chmod 600 /root/.ssh/authorized_keys
@@ -46,11 +46,5 @@ fi
 
 echo "All systems go! Starting command..."
 
-if [ "$@" = "${COMMAND}" ]; then
-  echo "Executing ${COMMAND}"
-  exec ${COMMAND}
-else
-  echo "Not executing ${COMMAND}"
-  echo "Executing ${@}"
-  exec $@
-fi
+echo "Executing $@"
+exec $@
